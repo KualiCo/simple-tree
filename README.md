@@ -90,3 +90,16 @@ will recalulate, and animate in your new nodes.
   padding. `[ top, right, bottom, left ]`. You need to provide all values if you
   override the margin values. You'll need to override these values if your leaf
   node labels overflow over the edge.
+
+- `fontSize` Number, Default `12`. The font size (in pixels) of the labels.
+
+- `circleRadius` Number, Default `3`. The radius of the points on the graph.
+
+- `onNodeClick` Function, Default `() => {}`. The handler that gets called when
+  a node is clicked on.
+
+- `onOffClick` Function, Default `() => {}`. The handler that gets called when
+  the component gets clicked on outside of a node.
+
+- `selected` String, Default `null`. The selected node to highlight. This should
+  be the id of the node you want to highlight.

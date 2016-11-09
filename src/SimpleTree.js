@@ -30,7 +30,12 @@ export default class SimpleTree extends Component {
     defaultLabel: '(No Value)',
     width: 800,
     height: 500,
-    padding: [ 20, 120, 20, 120 ]
+    padding: [ 20, 120, 20, 120 ],
+    fontSize: 12,
+    circleRadius: 3,
+    onNodeClick: () => { /* no-op */ },
+    onOffClick: () => { /* no-op */ },
+    selected: null,
   }
 
   static propTypes = {
@@ -42,7 +47,12 @@ export default class SimpleTree extends Component {
     defaultLabel: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.arrayOf(PropTypes.number)
+    padding: PropTypes.arrayOf(PropTypes.number),
+    fontSize: PropTypes.number,
+    circleRadius: PropTypes.number,
+    onNodeClick: PropTypes.func,
+    onOffClick: PropTypes.func,
+    selected: PropTypes.string,
   }
 
   renderLinks(dataTree) {
@@ -80,22 +90,43 @@ export default class SimpleTree extends Component {
   }
 
   renderNodes(root) {
+    const { fontSize, circleRadius, selected } = this.props
+    const textOffsetY = (fontSize / 4) + 0.5
+    const textOffsetX = circleRadius + 5
     return root.descendants().map((node) => (
       <Motion
         key={`${node.id}-node`}
-        defaultStyle={{ x: root.y, y: root.x }}
-        style={{ x: spring(node.y), y: spring(node.x) }}
-        children={({ x, y }) => (
-          <g transform={`translate(${x},${y})`}>
-            <circle r={3} style={{ fill: '#555' }} />
+        defaultStyle={{ x: root.y, y: root.x, scale: 1 }}
+        style={{
+          x: spring(node.y),
+          y: spring(node.x),
+          scale: spring(node.id === selected ? 1.15 : 1)
+        }}
+        children={({ x, y, scale }) => (
+          <g
+            transform={`translate(${x},${y})`}
+            style={{
+              cursor: 'pointer',
+              transform: `translate(${x},${y})`
+            }}
+            onClick={(e) => {
+              e.stopPropagation()
+              this.props.onNodeClick(node)
+            }}
+          >
+            <circle r={circleRadius} style={{
+              fill: '#555',
+              transform: `scale(${scale})`
+            }} />
             <text
               style={{
-                font: '12px sans-serif',
+                font: `${fontSize}px sans-serif`,
                 textShadow: '0 3px 0 #fff, 0 -3px 0 #fff, 3px 0 0 #fff, -3px 0 0 #fff',
                 textAnchor: node.children ? 'end' : 'start',
+                transform: `scale(${scale})`
               }}
-              dy={3.5}
-              x={node.children ? -8 : 8}
+              dy={textOffsetY}
+              x={node.children ? -textOffsetX : textOffsetX}
             >
               {node.data[this.props.label] || this.props.defaultLabel}
             </text>
@@ -115,7 +146,7 @@ export default class SimpleTree extends Component {
         [parentId]: null
       },
       ...data.map((node) => {
-        if (!node[parentId]) return { ...node, parentId: 'null' }
+        if (!node[parentId]) return { ...node, [parentId]: 'null' }
         return node
       })
     ]
@@ -146,12 +177,12 @@ export default class SimpleTree extends Component {
           position: 'relative',
           top: 0,
           left: 0,
-          zIndex: -1,
           width,
           height,
         }}
         width={width}
         height={height}
+        onClick={this.props.onOffClick}
       >
         <g transform={`translate(${p[3]},${p[0]})`}>
           {this.renderLinks(dataTree)}

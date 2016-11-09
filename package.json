@@ -5,7 +5,9 @@
   "main": "dist/SimpleTree.js",
   "scripts": {
     "clean": "rm -r dist; mkdir dist",
-    "prepublish": "npm run clean; BABEL_ENV=production babel -s --out-dir dist src",
+    "prepublish": "npm run build",
+    "build": "npm run clean; BABEL_ENV=production babel -s --out-dir dist src",
+    "build:watch": "npm run clean; BABEL_ENV=production babel -s -w --out-dir dist src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
