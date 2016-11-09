@@ -144,10 +144,12 @@ export default class SimpleTree extends Component {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         style={{
-          position: 'absolute',
+          position: 'relative',
           top: 0,
           left: 0,
           zIndex: -1,
+          width,
+          height,
         }}
         width={width}
         height={height}
