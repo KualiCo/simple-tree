@@ -2,7 +2,7 @@
 
 A Simple Tree component to display your hierarchical data.
 
-# Usage
+# Include
 
 ES6 modules
 
@@ -15,6 +15,8 @@ CommonJS
 ```js
 var SimpleTree = require('@kuali/simple-tree').default
 ```
+
+# Usage
 
 ```js
 import React from 'react'
