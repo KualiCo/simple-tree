@@ -119,7 +119,6 @@ export default class SimpleTree extends Component {
         return node
       })
     ]
-    console.log(newData)
     return stratify()
       .id((node) => node[id])
       .parentId((node) => node[parentId])(newData)
