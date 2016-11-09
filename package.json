@@ -1,0 +1,34 @@
+{
+  "name": "@kuali/simple-tree",
+  "version": "1.0.0",
+  "description": "A Simple Tree component to display your hierarchical data.",
+  "main": "dist/SimpleTree.js",
+  "scripts": {
+    "clean": "rm -r dist; mkdir dist",
+    "prepublish": "npm run clean; BABEL_ENV=production babel -s --out-dir dist src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist"
+  ],
+  "babel": {
+    "presets": ["react-app"]
+  },
+  "keywords": [
+    "react",
+    "d3",
+    "tree"
+  ],
+  "author": "kuali",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "d3-hierarchy": "^1.0.2",
+    "d3-path": "^1.0.2",
+    "react": "^15.3.2",
+    "react-motion": "^0.4.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-react-app": "^1.0.0"
+  }
+}
