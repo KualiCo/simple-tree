@@ -1,6 +1,6 @@
 {
   "name": "@kuali/simple-tree",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Simple Tree component to display your hierarchical data.",
   "main": "dist/SimpleTree.js",
   "scripts": {
